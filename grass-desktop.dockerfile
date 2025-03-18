@@ -70,7 +70,7 @@
     # Expose VNC and noVNC ports if needed
     EXPOSE 5900 6080
 
-    RUN echo "Current IP: $(curl -s ifconfig.me)"
+    ENTRYPOINT curl -s ifconfig.me && exec "$@"
     
     # New base image permits entrypoint customization
     ENV CUSTOMIZE=true
