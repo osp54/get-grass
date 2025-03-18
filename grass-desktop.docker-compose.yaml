@@ -1,4 +1,20 @@
 services:
+  redsocks:
+    image: mietzen/redsocks-proxy:stable
+    hostname: redsocks
+    ports:
+      - "8080:2001" # Port exposure on redsocks
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      PROXY_TYPE: ${PROXY_TYPE}
+      PROXY_SERVER: ${PROXY_SERVER}
+      PROXY_PORT: ${PROXY_PORT}
+      LOGIN: ${LOGIN}
+      PASSWORD: ${PASSWORD}
+    dns: 9.9.9.9
+    restart: unless-stopped
   grass-desktop:
     build:
       context: .
@@ -7,6 +23,10 @@ services:
       USER_EMAIL: ${USER_EMAIL}
       USER_PASSWORD: ${USER_PASSWORD}
       MAX_RETRY_MULTIPLIER: ${MAX_RETRY_MULTIPLIER}
+    depends_on:
+      redsocks:
+        condition: service_healthy
+    network_mode: service:redsocks
       
     ports:
       - "5900:5900"
