@@ -1,10 +1,10 @@
-version: '3'
 services:
   redsocks:
     image: mietzen/redsocks-proxy:stable
     hostname: redsocks
     ports:
-      - "8080:2001"
+      - "5900:5900"
+      - "6080:6080"
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -16,7 +16,6 @@ services:
       PASSWORD: ${PASSWORD}
     dns: 9.9.9.9
     restart: unless-stopped
-
   grass-desktop:
     build:
       context: .
@@ -31,3 +30,9 @@ services:
     network_mode: service:redsocks
     tty: true
     stdin_open: true
+    # develop:
+    #   watch:
+    #     - action: sync
+    #       path: ./
+    #       target: /app/
+
