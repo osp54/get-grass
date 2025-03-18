@@ -7,7 +7,6 @@
     
     RUN apt-get update && apt-get install -y --no-install-recommends \
         binutils \
-        curl \
         wget \
         ca-certificates && \
         rm -rf /var/lib/apt/lists/*
@@ -70,8 +69,6 @@
     
     # Expose VNC and noVNC ports if needed
     EXPOSE 5900 6080
-
-    ENTRYPOINT curl -s ifconfig.me && exec "$@"
     
     # New base image permits entrypoint customization
     ENV CUSTOMIZE=true
