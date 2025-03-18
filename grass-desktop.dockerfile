@@ -36,6 +36,7 @@
     RUN set -e; \
         apt-get update && \
         apt-get install -y --no-install-recommends \
+        curl \
         xdotool \
         ca-certificates \
         dpkg \
