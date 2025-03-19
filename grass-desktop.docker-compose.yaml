@@ -14,7 +14,13 @@ services:
       PROXY_PORT: ${PROXY_PORT}
       LOGIN: ${LOGIN}
       PASSWORD: ${PASSWORD}
-    dns: 8.8.8.8
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    dns_search:
+      - example.com
+    dns_opt:
+      - ndots:2
     restart: unless-stopped
   grass-desktop:
     build:
